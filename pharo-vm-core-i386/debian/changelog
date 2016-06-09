@@ -1,9 +1,14 @@
+pharo-vm-core-i386 (2016.02.19) precise; urgency=medium
+
+  * Build for precise
+
+ -- Norbert Hartl <norbert@hartl.name>  Thu, 09 Jun 2016 17:17:57 +0200
+
+
 pharo-vm-core-i386 (2014.01.26) UNRELEASED; urgency=low
 
+  [ Damien Cassou ]
   * Add pharo-vm-desktop files.
-
- -- Damien Cassou <damien.cassou@gmail.com>  Fri, 20 May 2014 18:07:00 +0200
-pharo-vm-core-i386 (2014.01.26) UNRELEASED; urgency=low
 
   * Upstream release.
 
