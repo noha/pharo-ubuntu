@@ -2,12 +2,9 @@
 
 set -e
 
-declare -a distros=(utopic trusty saucy precise lucid)
+declare -a distros=(precise trusty wily xenial)
 
-export DEBFULLNAME="Damien Cassou"
-export DEBEMAIL="damien.cassou@gmail.com"
-PPA=pharo/unstable
-PACKAGE_NAME=$(basename $PWD)
+source build.conf 
 
 function usage() {
     echo "Usage: $0 <upstream_version> <package_version> [OPTIONS]"
@@ -60,7 +57,7 @@ fi
 
 # We take the first distribution in distros and build for it
 distro=${distros[0]}
-./build-debian-package.sh $PACKAGE_NAME $upstream_version $package_version $distro $sources_option
+./build-debian-package.sh $upstream_version $package_version $distro $sources_option
 
 # We take the remaining distributions (i.e., the one from index 1 to
 # the last item)
@@ -79,5 +76,6 @@ done
 cd ..
 
 for distro in "${distros[@]}"; do
+    echo ppa:$PPA ${PACKAGE_NAME}_${upstream_version}-${package_version}\~ppa1\~${distro}1_*.changes
     dput ppa:$PPA ${PACKAGE_NAME}_${upstream_version}-${package_version}\~ppa1\~${distro}1_*.changes
 done

@@ -2,15 +2,13 @@
 
 set -e
 
-export DEBFULLNAME="Damien Cassou"
-export DEBEMAIL="damien.cassou@gmail.com"
-
+source build.conf
 
 function extract_source_package() {
     upstream_version="$1"
-    echo "Extract ${PACKAGE_NAME}_${upstream_version}.orig.tar.gz"
+    echo "Extract ${PACKAGE_NAME}_${upstream_version}.orig.tar.bz2"
     rm -rf ${PACKAGE_NAME}-${upstream_version}/
-    tar xfz ${PACKAGE_NAME}_${upstream_version}.orig.tar.gz
+    tar xfj ${PACKAGE_NAME}_${upstream_version}.orig.tar.bz2
 }
 
 function build() {
@@ -44,10 +42,10 @@ function build() {
 
     if [ $want_source_package -eq 0 ]; then
         echo "Create a source package to delegate the build (to PPA for example)"
-        debuild -k0xE2490AB1 -S ${upload_sources} --changes-option="-DDistribution=${distribution}"
+        debuild -k0x$PGP_KEY_ID -S ${upload_sources} --changes-option="-DDistribution=${distribution}"
     else
         echo "Create a binary package for immediate installation"
-        debuild -k0xE2490AB1 -b ${upload_sources} -uc -us
+        debuild -k0x$PGP_KEY_ID -b ${upload_sources} -uc -us
     fi
 
     cd ..
@@ -63,17 +61,16 @@ function usage() {
     echo -e "  --no-sources\t if you already uploaded the orig.tar.gz package"
 }
 
-if [[ $# -lt 4 ]]; then
+if [[ $# -lt 3 ]]; then
     usage
     exit 1
 fi
 
-export PACKAGE_NAME=$1
-upstream_version=$2
-package_version=$3
-distribution=$4
+upstream_version=$1
+package_version=$2
+distribution=$3
 
-shift 4
+shift 3
 
 if [ -z "$PACKAGE_NAME" -o -z "$upstream_version" -o -z "$package_version" -o -z "$distribution" ]; then
     usage
@@ -115,5 +112,6 @@ extract_source_package $upstream_version
 build $upstream_version $package_version $distribution $want_to_package_sources $want_source_package
 
 if [ $want_ppa_upload -eq 0 ]; then
-    dput ppa:pharo/unstable ${PACKAGE_NAME}_${upstream_version}-${package_version}~ppa1~${distribution}1_source.changes
+    echo "uploading ${PACKAGE_NAME}_${upstream_version}-${package_version}~ppa1~${distribution}1_source.changes"
+    dput ppa:$PPA ${PACKAGE_NAME}_${upstream_version}-${package_version}~ppa1~${distribution}1_source.changes
 fi
