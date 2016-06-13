@@ -1,0 +1,29 @@
+pharo5-vm-core (2016.05.04) xenial; urgency=medium
+
+  * Build for xenial
+
+ -- Norbert Hartl <norbert@hartl.name>  Sat, 11 Jun 2016 17:01:07 +0200
+
+pharo5-vm-core (2016.05.04-1~ppa1~xenial2) xenial; urgency=medium
+
+  * Build for xenial
+
+ -- Norbert Hartl <norbert@hartl.name>  Sat, 11 Jun 2016 16:59:54 +0200
+
+pharo5-vm-core (2016.05.04-1~ppa1~xenial1) xenial; urgency=medium
+
+  * Build for xenial
+
+ -- Norbert Hartl <norbert@hartl.name>  Sat, 11 Jun 2016 16:57:07 +0200
+
+pharo5-vm-core (2016.05.04) xenial; urgency=medium
+
+  * Build for xenial
+
+ -- Norbert Hartl <norbert@hartl.name>  Sat, 11 Jun 2016 16:55:52 +0200
+
+pharo5-vm-core (0.1) xenial; urgency=medium
+
+  * Initial release. (Closes: #XXXXXX)
+
+ -- Norbert Hartl <norbert@hartl.name>  Sat, 11 Jun 2016 16:55:15 +0200
